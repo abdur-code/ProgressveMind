@@ -8,6 +8,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import CTA from '../components/ui/CTA';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 const Programs = () => {
   const programs = [
@@ -88,7 +89,16 @@ const Programs = () => {
         title={['Our', 'Programs']}
         subtitle="Comprehensive programs designed to help you grow personally and professionally at every stage of your journey."
         badge="Our Offerings"
-      />
+      >
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link to="/signup" className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 flex items-center justify-center">
+            Sign Up <FiArrowRight className="ml-2" />
+          </Link>
+          <Link to="/login" className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all">
+            Log In
+          </Link>
+        </div>
+      </Hero>
 
       <Section>
         <div className="grid md:grid-cols-2 gap-8">
@@ -156,7 +166,16 @@ const Programs = () => {
           text: 'Contact Us',
           to: '/contact'
         }}
-      />
+      >
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link to="/signup" className="px-8 py-4 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/20 text-center">
+            Sign Up
+          </Link>
+          <Link to="/login" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/10 text-center">
+            Log In
+          </Link>
+        </div>
+      </CTA>
 
       <Footer />
     </div>
