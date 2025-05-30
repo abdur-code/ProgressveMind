@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/abdur-code/ProgressveMind#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongodb": "^6.16.0",
