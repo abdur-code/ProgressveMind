@@ -43,7 +43,7 @@ const Home = () => {
               <Link to="/signup" className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 flex items-center justify-center">
                 Sign Up <FiArrowRight className="ml-2" />
               </Link>
-              <Link to="/login" className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all">
+              <Link to="/signin" className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all">
                 Log In
               </Link>
             </div>
@@ -294,7 +294,7 @@ const Home = () => {
             <Link to="/signup" className="px-8 py-4 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/20 text-center">
               Sign Up
             </Link>
-            <Link to="/login" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/10 text-center">
+            <Link to="/signin" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/10 text-center">
               Log In
             </Link>
           </div>

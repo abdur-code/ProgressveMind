@@ -4,7 +4,7 @@ import About from './pages/About';
 import Programs from './pages/Programs';
 import SignUp from './pages/SignUp';
 import NotFound from './pages/NotFound';
-
+import SignIn from './pages/SignIn';
 function App() {
   return (
     <Router>
@@ -13,6 +13,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
