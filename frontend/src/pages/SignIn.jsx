@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiMail, FiLock } from 'react-icons/fi';
 import Navbar from '../components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { currentUser, loading, error: errorMessage } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -48,7 +55,6 @@ const SignIn = () => {
       dispatch(signInFailure(err.message));
     }
   };
-  
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -115,16 +121,31 @@ const SignIn = () => {
             </div>
 
             <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full flex justify-center items-center px-4 py-3 border border-transparent text-base font-medium rounded-lg text-white 
-                ${loading ? 'bg-purple-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'} 
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all transform ${!loading && 'hover:scale-105'}`}>
-              {loading ? 'Signing In...' : 'Sign In'} <FiArrowRight className="ml-2" />
-            </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className={`w-full flex justify-center items-center px-4 py-3 border border-transparent text-base font-medium rounded-lg text-white 
+                  ${loading ? 'bg-purple-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700'} 
+                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all transform ${!loading && 'hover:scale-105'}`}>
+                {loading ? 'Signing In...' : 'Sign In'} <FiArrowRight className="ml-2" />
+              </button>
             </div>
           </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-purple-500/30"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-gray-900/50 text-gray-400">Or continue with</span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <OAuth />
+            </div>
+          </div>
 
           <div className="text-center mt-6">
             <p className="text-sm text-gray-400">

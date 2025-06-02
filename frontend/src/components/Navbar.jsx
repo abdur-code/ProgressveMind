@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiUser, FiLogOut } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../redux/user/userSlice';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -32,6 +36,18 @@ const Navbar = () => {
     { to: "#mentorship", text: "Mentorship" },
     { to: "#community", text: "Community" },
   ];
+
+  const handleSignOut = async () => {
+    try {
+      await fetch('http://localhost:3000/backend/auth/signout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      dispatch(signOut());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900 bg-opacity-95 backdrop-blur-sm border-b border-gray-800' : 'bg-gray-900 bg-opacity-90 backdrop-blur-sm'}`}>
@@ -65,6 +81,36 @@ const Navbar = () => {
             >
               Join Community
             </Link>
+            {currentUser ? (
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-purple-400">
+                  <FiUser className="h-5 w-5" />
+                  <span>{currentUser.username || currentUser.email}</span>
+                </div>
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+                >
+                  <FiLogOut className="h-5 w-5" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/signin"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/signup"
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -111,6 +157,36 @@ const Navbar = () => {
           >
             Join Community
           </Link>
+          {currentUser ? (
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 text-purple-400">
+                <FiUser className="h-5 w-5" />
+                <span>{currentUser.username || currentUser.email}</span>
+              </div>
+              <button
+                onClick={handleSignOut}
+                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              >
+                <FiLogOut className="h-5 w-5" />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <Link
+                to="/signin"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

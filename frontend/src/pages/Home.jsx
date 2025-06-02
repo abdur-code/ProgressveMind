@@ -13,8 +13,11 @@ import {
 import { FaGraduationCap, FaUserTie, FaChalkboardTeacher } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
@@ -39,14 +42,20 @@ const Home = () => {
             <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
               Empowering underprivileged youth with tech skills, mentorship, and career opportunities to break the cycle of poverty through education and community support.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link to="/signup" className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 flex items-center justify-center">
-                Sign Up <FiArrowRight className="ml-2" />
-              </Link>
-              <Link to="/signin" className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all">
-                Log In
-              </Link>
-            </div>
+            {currentUser ? (
+              <div className="text-xl text-purple-200 font-semibold">
+                Welcome back, {currentUser.username}! 👋
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link to="/signup" className="px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/30 flex items-center justify-center">
+                  Sign Up <FiArrowRight className="ml-2" />
+                </Link>
+                <Link to="/signin" className="px-8 py-4 bg-transparent border-2 border-white/20 text-white font-semibold rounded-lg hover:bg-white/10 transition-all">
+                  Log In
+                </Link>
+              </div>
+            )}
           </div>
           
           {/* Stats */}
@@ -290,14 +299,23 @@ const Home = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">Ready to Transform Your Future?</h2>
           <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">Join our community of ambitious individuals and take the first step towards a successful career in tech.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/signup" className="px-8 py-4 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/20 text-center">
-              Sign Up
-            </Link>
-            <Link to="/signin" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/10 text-center">
-              Log In
-            </Link>
-          </div>
+          {currentUser ? (
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              
+              <Link to="/programs" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/10 text-center">
+                Explore Programs
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link to="/signup" className="px-8 py-4 bg-white text-indigo-700 font-semibold rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/20 text-center">
+                Sign Up
+              </Link>
+              <Link to="/signin" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-all transform hover:scale-105 shadow-lg hover:shadow-white/10 text-center">
+                Log In
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
